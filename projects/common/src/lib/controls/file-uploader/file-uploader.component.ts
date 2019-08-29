@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
 @Component({
@@ -9,11 +9,16 @@ import { FileUploader } from 'ng2-file-upload';
 
 export class FileUploaderComponent implements OnInit {
 
-protected URL = '/api/';
-public FileUploader: FileUploader = new FileUploader({url: this.URL});
+
+public FileUploader: FileUploader; 
 
 public SelectedFiles: Array<File>;
 
+protected _URL;
+@Input('url')
+  protected set URL(value: string){
+    this._URL = value;
+  }
 
 @Output('files-to-upload')
   public FilesToUpload: EventEmitter<Array<File>>;
@@ -24,6 +29,7 @@ public SelectedFiles: Array<File>;
   }
 
   ngOnInit() {
+    this.FileUploader = new FileUploader({url: this._URL});
   }
 
   onFileChanged(event) {
