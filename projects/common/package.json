@@ -1,10 +1,6 @@
 {
 	"name": "@lowcodeunit/lcu-file-uploader-common",
-<<<<<<< HEAD
-	"version": "0.0.9",
-=======
-	"version": "0.0.6",
->>>>>>> f3de5acf1091f82c6f025d0803447cdbe8b1d5b4
+	"version": "0.0.10",
 	"peerDependencies": {
 		"@angular/common": "^8.1.3",
 		"@angular/core": "^8.1.3"
