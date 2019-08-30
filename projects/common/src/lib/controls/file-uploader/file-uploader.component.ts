@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FileUploader } from 'ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
 @Component({
   selector: 'lcu-file-uploader',

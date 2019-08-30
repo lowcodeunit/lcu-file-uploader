@@ -1,6 +1,6 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('ng2-file-upload'), require('ng2-file-upload/ng2-file-upload')) :
-    typeof define === 'function' && define.amd ? define('@lowcodeunit/lcu-file-uploader-common', ['exports', '@angular/core', '@angular/common', 'ng2-file-upload', 'ng2-file-upload/ng2-file-upload'], factory) :
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('ng2-file-upload/ng2-file-upload'), require('ng2-file-upload')) :
+    typeof define === 'function' && define.amd ? define('@lowcodeunit/lcu-file-uploader-common', ['exports', '@angular/core', '@angular/common', 'ng2-file-upload/ng2-file-upload', 'ng2-file-upload'], factory) :
     (global = global || self, factory((global.lowcodeunit = global.lowcodeunit || {}, global.lowcodeunit['lcu-file-uploader-common'] = {}), global.ng.core, global.ng.common, global.ng2FileUpload, global.ng2FileUpload$1));
 }(this, function (exports, core, common, ng2FileUpload, ng2FileUpload$1) { 'use strict';
 
@@ -96,15 +96,51 @@
                         ],
                         imports: [
                             common.CommonModule,
-                            ng2FileUpload$1.FileUploadModule
+                            ng2FileUpload.FileUploadModule
                         ],
-                        exports: [FileUploaderComponent],
+                        exports: [FileUploaderComponent, ng2FileUpload.FileUploadModule],
                         entryComponents: [FileUploaderComponent]
                     },] }
         ];
         return LcuFileUploaderModule;
     }());
 
+    Object.defineProperty(exports, 'FileDropDirective', {
+        enumerable: true,
+        get: function () {
+            return ng2FileUpload$1.FileDropDirective;
+        }
+    });
+    Object.defineProperty(exports, 'FileItem', {
+        enumerable: true,
+        get: function () {
+            return ng2FileUpload$1.FileItem;
+        }
+    });
+    Object.defineProperty(exports, 'FileLikeObject', {
+        enumerable: true,
+        get: function () {
+            return ng2FileUpload$1.FileLikeObject;
+        }
+    });
+    Object.defineProperty(exports, 'FileSelectDirective', {
+        enumerable: true,
+        get: function () {
+            return ng2FileUpload$1.FileSelectDirective;
+        }
+    });
+    Object.defineProperty(exports, 'FileUploadModule', {
+        enumerable: true,
+        get: function () {
+            return ng2FileUpload$1.FileUploadModule;
+        }
+    });
+    Object.defineProperty(exports, 'FileUploader', {
+        enumerable: true,
+        get: function () {
+            return ng2FileUpload$1.FileUploader;
+        }
+    });
     exports.FileUploaderComponent = FileUploaderComponent;
     exports.LcuFileUploaderModule = LcuFileUploaderModule;
 

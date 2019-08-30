@@ -1,7 +1,7 @@
 import { EventEmitter, Component, Input, Output, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FileUploader } from 'ng2-file-upload';
-import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader, FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
+export { FileDropDirective, FileItem, FileLikeObject, FileSelectDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
 /**
  * @fileoverview added by tsickle
@@ -97,7 +97,7 @@ var LcuFileUploaderModule = /** @class */ (function () {
                         CommonModule,
                         FileUploadModule
                     ],
-                    exports: [FileUploaderComponent],
+                    exports: [FileUploaderComponent, FileUploadModule],
                     entryComponents: [FileUploaderComponent]
                 },] }
     ];
