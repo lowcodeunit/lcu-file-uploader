@@ -13,7 +13,7 @@ import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
     CommonModule,
     FileUploadModule
   ],
-  exports: [FileUploaderComponent],
+  exports: [FileUploaderComponent, FileUploadModule],
   entryComponents: [FileUploaderComponent]
 })
 export class LcuFileUploaderModule { }
