@@ -7,6 +7,25 @@ export { FileDropDirective, FileItem, FileLikeObject, FileSelectDirective, FileU
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var ImageMessage = /** @class */ (function () {
+    function ImageMessage(data, headers) {
+        this.Data = data;
+        this.Headers = headers;
+    }
+    return ImageMessage;
+}());
+if (false) {
+    /** @type {?} */
+    ImageMessage.prototype.Data;
+    /** @type {?} */
+    ImageMessage.prototype.Headers;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+// import { ConvertToBase64Util } from '@lcu-ide/common';
 var FileUploaderComponent = /** @class */ (function () {
     function FileUploaderComponent() {
         this.SelectedFiles = new Array();
@@ -42,21 +61,73 @@ var FileUploaderComponent = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        console.log("event = ", event.queue);
         if (this.SelectedFiles) {
             for (var i = 0; i < event.queue.length; i++) {
-                console.log("pushing: ", event.queue[i].file.rawFile);
-                this.SelectedFiles.push(event.queue[i].file.rawFile);
+                this.getBase64(event.queue[i].file.rawFile);
+                // console.log("Object = ",ConvertToBase64Util.GetBase64(event.queue[i].file.rawFile));     
             }
         }
-        console.log("file uploaded = ", this.SelectedFiles);
+        console.log("file(s) uploaded = ", this.SelectedFiles);
         this.FilesToUpload.emit(this.SelectedFiles);
+    };
+    /**
+     * @protected
+     * @param {?} event
+     * @return {?}
+     */
+    FileUploaderComponent.prototype.getBase64 = /**
+     * @protected
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        /** @type {?} */
+        var file = event;
+        /** @type {?} */
+        var me = this;
+        /** @type {?} */
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (/**
+         * @return {?}
+         */
+        function () {
+            //console.log(reader.result);
+            me.base64 = reader.result.toString();
+            me.buildImageMessage(reader.result.toString(), file);
+        });
+        reader.onerror = (/**
+         * @param {?} error
+         * @return {?}
+         */
+        function (error) {
+            console.log('Error: ', error);
+        });
+    };
+    /**
+     * @protected
+     * @param {?} base64
+     * @param {?} file
+     * @return {?}
+     */
+    FileUploaderComponent.prototype.buildImageMessage = /**
+     * @protected
+     * @param {?} base64
+     * @param {?} file
+     * @return {?}
+     */
+    function (base64, file) {
+        /** @type {?} */
+        var header = "filename=" + file.name;
+        /** @type {?} */
+        var tempIM = new ImageMessage(base64, header);
+        this.SelectedFiles.push(tempIM);
     };
     FileUploaderComponent.decorators = [
         { type: Component, args: [{
                     selector: 'lcu-file-uploader',
-                    template: "<input  style=\"display: none\" type=\"file\"  (change)=\"onFileChanged(FileUploader)\" ng2FileSelect [uploader]=\"FileUploader\" multiple #fileInput/>\r\n<!-- <input (change)=\"onFileChanged($event)\"> -->\r\n<button mat-raised-button color=\"primary\" (click)=\"fileInput.click()\">Select File</button>\r\n",
-                    styles: [""]
+                    template: "<input  style=\"display: none\" type=\"file\"  (change)=\"onFileChanged(FileUploader)\" ng2FileSelect [uploader]=\"FileUploader\" multiple #fileInput/>\r\n<button mat-raised-button class=\"button\" (click)=\"fileInput.click()\">Select File(s)</button>\r\n\r\n<!-- <input (change)=\"onFileChanged($event)\"> -->\r\n<!-- <input type=\"file\" (change)=\"onUpload($event)\" #file />\r\n<button mat-raised-button class=\"button\" (click)=\"file.click()\">Select File</button> -->\r\n\r\n",
+                    styles: [".button{background-color:#3f51b5;color:#fff;border-color:#3f51b5;border-radius:4px;font-family:Arial;font-size:13.3333px;padding:6px;box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)!important}"]
                 }] }
     ];
     /** @nocollapse */
@@ -72,6 +143,8 @@ if (false) {
     FileUploaderComponent.prototype.FileUploader;
     /** @type {?} */
     FileUploaderComponent.prototype.SelectedFiles;
+    /** @type {?} */
+    FileUploaderComponent.prototype.base64;
     /**
      * @type {?}
      * @protected
@@ -114,5 +187,5 @@ var LcuFileUploaderModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { FileUploaderComponent, LcuFileUploaderModule };
+export { FileUploaderComponent, ImageMessage, LcuFileUploaderModule };
 //# sourceMappingURL=lowcodeunit-lcu-file-uploader-common.js.map
