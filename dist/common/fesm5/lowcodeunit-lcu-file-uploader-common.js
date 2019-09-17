@@ -25,6 +25,7 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// import { ConvertToBase64Util } from '@lcu-ide/common';
 var FileUploaderComponent = /** @class */ (function () {
     function FileUploaderComponent() {
         this.SelectedFiles = new Array();
@@ -55,7 +56,27 @@ var FileUploaderComponent = /** @class */ (function () {
      * @param {?} event
      * @return {?}
      */
+    FileUploaderComponent.prototype.onFileChanged = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        if (this.SelectedFiles) {
+            for (var i = 0; i < event.queue.length; i++) {
+                this.getBase64(event.queue[i].file.rawFile);
+                // console.log("Object = ",ConvertToBase64Util.GetBase64(event.queue[i].file.rawFile));     
+            }
+        }
+        console.log("file(s) uploaded = ", this.SelectedFiles);
+        this.FilesToUpload.emit(this.SelectedFiles);
+    };
+    /**
+     * @protected
+     * @param {?} event
+     * @return {?}
+     */
     FileUploaderComponent.prototype.getBase64 = /**
+     * @protected
      * @param {?} event
      * @return {?}
      */
@@ -72,7 +93,7 @@ var FileUploaderComponent = /** @class */ (function () {
          */
         function () {
             //console.log(reader.result);
-            // me.base64 = reader.result.toString();
+            me.base64 = reader.result.toString();
             me.buildImageMessage(reader.result.toString(), file);
         });
         reader.onerror = (/**
@@ -84,11 +105,13 @@ var FileUploaderComponent = /** @class */ (function () {
         });
     };
     /**
+     * @protected
      * @param {?} base64
      * @param {?} file
      * @return {?}
      */
     FileUploaderComponent.prototype.buildImageMessage = /**
+     * @protected
      * @param {?} base64
      * @param {?} file
      * @return {?}
@@ -98,27 +121,7 @@ var FileUploaderComponent = /** @class */ (function () {
         var header = "filename=" + file.name;
         /** @type {?} */
         var tempIM = new ImageMessage(base64, header);
-        //console.log("tempIm = ",tempIM);
         this.SelectedFiles.push(tempIM);
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    FileUploaderComponent.prototype.onFileChanged = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        // console.log("event = ", event);
-        // console.log("event.queue = ", event.queue);
-        if (this.SelectedFiles) {
-            for (var i = 0; i < event.queue.length; i++) {
-                this.getBase64(event.queue[i].file.rawFile);
-            }
-        }
-        console.log("file(s) uploaded = ", this.SelectedFiles);
-        this.FilesToUpload.emit(this.SelectedFiles);
     };
     FileUploaderComponent.decorators = [
         { type: Component, args: [{
@@ -140,6 +143,8 @@ if (false) {
     FileUploaderComponent.prototype.FileUploader;
     /** @type {?} */
     FileUploaderComponent.prototype.SelectedFiles;
+    /** @type {?} */
+    FileUploaderComponent.prototype.base64;
     /**
      * @type {?}
      * @protected
