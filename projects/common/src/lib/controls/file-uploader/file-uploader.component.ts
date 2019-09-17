@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { ImageMessage } from '../models/image-message.model';
 
 @Component({
   selector: 'lcu-file-uploader',
@@ -12,7 +13,9 @@ export class FileUploaderComponent implements OnInit {
 
 public FileUploader: FileUploader; 
 
-public SelectedFiles: Array<File>;
+public SelectedFiles: Array<ImageMessage>;
+
+// public base64: string;
 
 protected _URL;
 @Input('url')
@@ -21,26 +24,50 @@ protected _URL;
   }
 
 @Output('files-to-upload')
-  public FilesToUpload: EventEmitter<Array<File>>;
+  public FilesToUpload: EventEmitter<Array<ImageMessage>>;
 
   constructor() { 
-    this.SelectedFiles = new Array<File>();
-    this.FilesToUpload = new EventEmitter<Array<File>>();
+    this.SelectedFiles = new Array<ImageMessage>();
+    this.FilesToUpload = new EventEmitter<Array<ImageMessage>>();
   }
 
   ngOnInit() {
     this.FileUploader = new FileUploader({url: this._URL});
   }
 
+    getBase64(event): any {
+      let file = event;
+      let me = this;
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        //console.log(reader.result);
+        // me.base64 = reader.result.toString();
+        me.buildImageMessage(reader.result.toString(), file);
+      };
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+   }
+  
+   buildImageMessage(base64: any, file: File){
+     let header = "filename="+file.name;
+     let tempIM: ImageMessage = new ImageMessage(base64, header);
+    //console.log("tempIm = ",tempIM);
+    this.SelectedFiles.push(tempIM);
+
+   }
+
+
   onFileChanged(event) {
-    console.log("event = ", event.queue);
+    // console.log("event = ", event);
+   // console.log("event.queue = ", event.queue);
     if (this.SelectedFiles) {
       for (let i = 0; i < event.queue.length; i++) {
-        console.log("pushing: ", event.queue[i].file.rawFile);
-        this.SelectedFiles.push(event.queue[i].file.rawFile);
+        this.getBase64(event.queue[i].file.rawFile);      
       }
     }
-    console.log("file uploaded = ", this.SelectedFiles);
+    console.log("file(s) uploaded = ", this.SelectedFiles);
     this.FilesToUpload.emit(this.SelectedFiles);
   }
 
