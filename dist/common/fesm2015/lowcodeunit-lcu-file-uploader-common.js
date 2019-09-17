@@ -28,6 +28,7 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// import { ConvertToBase64Util } from '@lcu-ide/common';
 class FileUploaderComponent {
     constructor() {
         this.SelectedFiles = new Array();
@@ -51,6 +52,21 @@ class FileUploaderComponent {
      * @param {?} event
      * @return {?}
      */
+    onFileChanged(event) {
+        if (this.SelectedFiles) {
+            for (let i = 0; i < event.queue.length; i++) {
+                this.getBase64(event.queue[i].file.rawFile);
+                // console.log("Object = ",ConvertToBase64Util.GetBase64(event.queue[i].file.rawFile));     
+            }
+        }
+        console.log("file(s) uploaded = ", this.SelectedFiles);
+        this.FilesToUpload.emit(this.SelectedFiles);
+    }
+    /**
+     * @protected
+     * @param {?} event
+     * @return {?}
+     */
     getBase64(event) {
         /** @type {?} */
         let file = event;
@@ -62,20 +78,21 @@ class FileUploaderComponent {
         reader.onload = (/**
          * @return {?}
          */
-        function () {
+        () => {
             //console.log(reader.result);
-            // me.base64 = reader.result.toString();
+            me.base64 = reader.result.toString();
             me.buildImageMessage(reader.result.toString(), file);
         });
         reader.onerror = (/**
          * @param {?} error
          * @return {?}
          */
-        function (error) {
+        (error) => {
             console.log('Error: ', error);
         });
     }
     /**
+     * @protected
      * @param {?} base64
      * @param {?} file
      * @return {?}
@@ -85,23 +102,7 @@ class FileUploaderComponent {
         let header = "filename=" + file.name;
         /** @type {?} */
         let tempIM = new ImageMessage(base64, header);
-        //console.log("tempIm = ",tempIM);
         this.SelectedFiles.push(tempIM);
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    onFileChanged(event) {
-        // console.log("event = ", event);
-        // console.log("event.queue = ", event.queue);
-        if (this.SelectedFiles) {
-            for (let i = 0; i < event.queue.length; i++) {
-                this.getBase64(event.queue[i].file.rawFile);
-            }
-        }
-        console.log("file(s) uploaded = ", this.SelectedFiles);
-        this.FilesToUpload.emit(this.SelectedFiles);
     }
 }
 FileUploaderComponent.decorators = [
@@ -122,6 +123,8 @@ if (false) {
     FileUploaderComponent.prototype.FileUploader;
     /** @type {?} */
     FileUploaderComponent.prototype.SelectedFiles;
+    /** @type {?} */
+    FileUploaderComponent.prototype.base64;
     /**
      * @type {?}
      * @protected

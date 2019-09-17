@@ -2,13 +2,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { FathymSharedModule, MaterialModule } from '@lcu-ide/common';
-import { LcuFileUploaderModule } from 'projects/common/src/lcu.api';
-// import { FileUploaderComponent } from 'projects/common/src/lcu.api';
+import { LcuFileUploaderModule } from '@lowcodeunit/lcu-file-uploader-common';
 
 
 

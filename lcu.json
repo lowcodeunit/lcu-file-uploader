@@ -1,14 +1,16 @@
 {
-  "templates": {
-    "repository": "lowcodeunit-devkit/lcu-cli-templates-core",
-    "scope": "@lowcodeunit",
-    "workspace": "lcu-file-uploader"
-  },
-  "config": {
-    "wc": ["wc/lcu-file-uploader.lcu.js"],
-    "solutions": {},
-    "elements": {},
-    "flux": {},
-    "dependencies": {}
-  }
+	"templates": {
+		"repository": "lowcodeunit-devkit/lcu-cli-templates-core",
+		"scope": "@lowcodeunit",
+		"workspace": "lcu-file-uploader"
+	},
+	"config": {
+		"wc": [
+			"wc/lcu-file-uploader.lcu.js"
+		],
+		"solutions": {},
+		"elements": {},
+		"flux": {},
+		"dependencies": {}
+	}
 }
