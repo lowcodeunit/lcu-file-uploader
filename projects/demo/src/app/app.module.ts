@@ -7,8 +7,6 @@ import { AppComponent } from './app.component';
 import { FathymSharedModule, MaterialModule } from '@lcu-ide/common';
 import { LcuFileUploaderModule } from '@lowcodeunit/lcu-file-uploader-common';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
