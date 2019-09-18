@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ImageMessage } from '../models/image-message.model';
-// import { ConvertToBase64Util } from '@lcu-ide/common';
+import { Base64Model, ConvertToBase64Util } from '@lcu-ide/common';
 
 @Component({
   selector: 'lcu-file-uploader',
@@ -36,36 +36,35 @@ export class FileUploaderComponent implements OnInit {
     this.FileUploader = new FileUploader({ url: this._URL });
   }
 
-  public onFileChanged(event) {
+  /**
+   * Build the image message
+   *
+   * @param base64 base 64 string for the image
+   *
+   * @param file file data
+   */
+   protected buildImageMessage(base64: string, file: File){
+     const header = 'filename=' + file.name;
+     const tempIM: ImageMessage = new ImageMessage(base64, header);
+     this.SelectedFiles.push(tempIM);
+
+     // console.log('selected files', this.SelectedFiles);
+   }
+
+
+   /**
+    * When a file is selected
+    *
+    * @param event need to figure out what the type is
+    */
+  public OnFileChanged(event: any) {
     if (this.SelectedFiles) {
-      for (let i = 0; i < event.queue.length; i++) {
-        this.getBase64(event.queue[i].file.rawFile);
-        // console.log("Object = ",ConvertToBase64Util.GetBase64(event.queue[i].file.rawFile));     
+     for (const itm of event.queue) {
+       ConvertToBase64Util.GetBase64(itm.file.rawFile)
+       .subscribe((result: Base64Model) => {
+          this.buildImageMessage(result.Blob, result.File);
+        });
       }
     }
-    console.log("file(s) uploaded = ", this.SelectedFiles);
-    this.FilesToUpload.emit(this.SelectedFiles);
   }
-
-  protected getBase64(event): any {
-    let file = event;
-    let me = this;
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      //console.log(reader.result);
-      me.base64 = reader.result.toString();
-      me.buildImageMessage(reader.result.toString(), file);
-    };
-    reader.onerror = (error) => {
-      console.log('Error: ', error);
-    };
-  }
-
-  protected buildImageMessage(base64: any, file: File) {
-    let header = "filename=" + file.name;
-    let tempIM: ImageMessage = new ImageMessage(base64, header);
-    this.SelectedFiles.push(tempIM);
-  }
-
 }
