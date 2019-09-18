@@ -280,7 +280,7 @@
             /** @type {?} */
             var tempIM = new ImageMessage(base64, header);
             this.SelectedFiles.push(tempIM);
-            console.log('selected files', this.SelectedFiles);
+            //  console.log('selected files', this.SelectedFiles);
         };
         /**
          * When a file is selected
@@ -323,6 +323,7 @@
                     }
                     finally { if (e_1) throw e_1.error; }
                 }
+                this.FilesToUpload.emit(this.SelectedFiles);
             }
         };
         FileUploaderComponent.decorators = [

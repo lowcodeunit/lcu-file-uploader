@@ -63,7 +63,7 @@ class FileUploaderComponent {
         /** @type {?} */
         const tempIM = new ImageMessage(base64, header);
         this.SelectedFiles.push(tempIM);
-        console.log('selected files', this.SelectedFiles);
+        //  console.log('selected files', this.SelectedFiles);
     }
     /**
      * When a file is selected
@@ -83,6 +83,7 @@ class FileUploaderComponent {
                     this.buildImageMessage(result.Blob, result.File);
                 }));
             }
+            this.FilesToUpload.emit(this.SelectedFiles);
         }
     }
 }
