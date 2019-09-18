@@ -6,13 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FathymSharedModule, MaterialModule } from '@lcu-ide/common';
 import { LcuFileUploaderModule } from '@lowcodeunit/lcu-file-uploader-common';
-<<<<<<< HEAD
-
-// import { FileUploaderComponent } from 'projects/common/src/lcu.api';
-=======
->>>>>>> 68236b45d821528a3242f446e9eb5bf1ce9968e0
-
-
 
 @NgModule({
   declarations: [

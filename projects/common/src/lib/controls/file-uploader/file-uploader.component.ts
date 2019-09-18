@@ -47,7 +47,8 @@ export class FileUploaderComponent implements OnInit {
      const header = 'filename=' + file.name;
      const tempIM: ImageMessage = new ImageMessage(base64, header);
      this.SelectedFiles.push(tempIM);
-     console.log('selected files', this.SelectedFiles);
+
+     // console.log('selected files', this.SelectedFiles);
    }
 
 
