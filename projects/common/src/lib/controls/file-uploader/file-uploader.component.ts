@@ -48,7 +48,7 @@ export class FileUploaderComponent implements OnInit {
      const tempIM: ImageMessage = new ImageMessage(base64, header);
      this.SelectedFiles.push(tempIM);
 
-     // console.log('selected files', this.SelectedFiles);
+    //  console.log('selected files', this.SelectedFiles);
    }
 
 
@@ -65,6 +65,7 @@ export class FileUploaderComponent implements OnInit {
           this.buildImageMessage(result.Blob, result.File);
         });
       }
+      this.FilesToUpload.emit(this.SelectedFiles);
     }
   }
 }
