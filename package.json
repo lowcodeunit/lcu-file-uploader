@@ -40,7 +40,11 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "@aspnet/signalr": "^1.1.4",
+<<<<<<< HEAD
     "@lcu-ide/common": "^0.24.33",
+=======
+    "@lcu-ide/common": "^0.22.18-file-uploader",
+>>>>>>> 68236b45d821528a3242f446e9eb5bf1ce9968e0
     "@lowcodeunit-devkit/ng-lcu": "^0.79.395",
     "@webcomponents/custom-elements": "^1.2.4",
     "@webcomponents/webcomponentsjs": "^2.2.10",

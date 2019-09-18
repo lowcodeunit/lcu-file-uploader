@@ -1,10 +1,14 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ImageMessage } from '../models/image-message.model';
+<<<<<<< HEAD
 import { Observable } from 'rxjs/internal/Observable';
 import { Base64Model, ConvertToBase64Util } from '@lcu-ide/common';
 import { Subscriber } from 'rxjs/internal/Subscriber';
 import { Subject } from 'rxjs';
+=======
+// import { ConvertToBase64Util } from '@lcu-ide/common';
+>>>>>>> 68236b45d821528a3242f446e9eb5bf1ce9968e0
 
 @Component({
   selector: 'lcu-file-uploader',
@@ -15,28 +19,28 @@ import { Subject } from 'rxjs';
 export class FileUploaderComponent implements OnInit {
 
 
-public FileUploader: FileUploader; 
+  public FileUploader: FileUploader;
 
-public SelectedFiles: Array<ImageMessage>;
+  public SelectedFiles: Array<ImageMessage>;
 
-// public base64: string;
+  public base64: string;
 
-protected _URL;
-@Input('url')
-  protected set URL(value: string){
+  protected _URL;
+  @Input('url')
+  protected set URL(value: string) {
     this._URL = value;
   }
 
-@Output('files-to-upload')
+  @Output('files-to-upload')
   public FilesToUpload: EventEmitter<Array<ImageMessage>>;
 
-  constructor() { 
+  constructor() {
     this.SelectedFiles = new Array<ImageMessage>();
     this.FilesToUpload = new EventEmitter<Array<ImageMessage>>();
   }
 
   ngOnInit() {
-    this.FileUploader = new FileUploader({url: this._URL});
+    this.FileUploader = new FileUploader({ url: this._URL });
   }
 
   /**

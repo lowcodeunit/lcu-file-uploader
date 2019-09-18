@@ -4,11 +4,13 @@ import { ImageMessage } from '../models/image-message.model';
 export declare class FileUploaderComponent implements OnInit {
     FileUploader: FileUploader;
     SelectedFiles: Array<ImageMessage>;
+    base64: string;
     protected _URL: any;
     protected URL: string;
     FilesToUpload: EventEmitter<Array<ImageMessage>>;
     constructor();
     ngOnInit(): void;
+<<<<<<< HEAD
     /**
      * Build the image message
      *
@@ -23,4 +25,9 @@ export declare class FileUploaderComponent implements OnInit {
      * @param event need to figure out what the type is
      */
     OnFileChanged(event: any): void;
+=======
+    onFileChanged(event: any): void;
+    protected getBase64(event: any): any;
+    protected buildImageMessage(base64: any, file: File): void;
+>>>>>>> 68236b45d821528a3242f446e9eb5bf1ce9968e0
 }
