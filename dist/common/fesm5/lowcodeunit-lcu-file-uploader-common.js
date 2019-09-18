@@ -27,7 +27,6 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-// import { ConvertToBase64Util } from '@lcu-ide/common';
 var FileUploaderComponent = /** @class */ (function () {
     function FileUploaderComponent() {
         this.SelectedFiles = new Array();
@@ -55,7 +54,6 @@ var FileUploaderComponent = /** @class */ (function () {
         this.FileUploader = new FileUploader({ url: this._URL });
     };
     /**
-<<<<<<< HEAD
      * Build the image message
      *
      * @param base64 base 64 string for the image
@@ -78,69 +76,6 @@ var FileUploaderComponent = /** @class */ (function () {
      * @param {?} base64 base 64 string for the image
      *
      * @param {?} file file data
-=======
-     * @param {?} event
-     * @return {?}
-     */
-    FileUploaderComponent.prototype.onFileChanged = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        if (this.SelectedFiles) {
-            for (var i = 0; i < event.queue.length; i++) {
-                this.getBase64(event.queue[i].file.rawFile);
-                // console.log("Object = ",ConvertToBase64Util.GetBase64(event.queue[i].file.rawFile));     
-            }
-        }
-        console.log("file(s) uploaded = ", this.SelectedFiles);
-        this.FilesToUpload.emit(this.SelectedFiles);
-    };
-    /**
-     * @protected
-     * @param {?} event
-     * @return {?}
-     */
-    FileUploaderComponent.prototype.getBase64 = /**
-     * @protected
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        /** @type {?} */
-        var file = event;
-        /** @type {?} */
-        var me = this;
-        /** @type {?} */
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (/**
-         * @return {?}
-         */
-        function () {
-            //console.log(reader.result);
-            me.base64 = reader.result.toString();
-            me.buildImageMessage(reader.result.toString(), file);
-        });
-        reader.onerror = (/**
-         * @param {?} error
-         * @return {?}
-         */
-        function (error) {
-            console.log('Error: ', error);
-        });
-    };
-    /**
-     * @protected
-     * @param {?} base64
-     * @param {?} file
-     * @return {?}
-     */
-    FileUploaderComponent.prototype.buildImageMessage = /**
-     * @protected
-     * @param {?} base64
-     * @param {?} file
->>>>>>> 68236b45d821528a3242f446e9eb5bf1ce9968e0
      * @return {?}
      */
     function (base64, file) {
@@ -151,7 +86,6 @@ var FileUploaderComponent = /** @class */ (function () {
         this.SelectedFiles.push(tempIM);
         console.log('selected files', this.SelectedFiles);
     };
-<<<<<<< HEAD
     /**
      * When a file is selected
      *
@@ -195,8 +129,6 @@ var FileUploaderComponent = /** @class */ (function () {
             }
         }
     };
-=======
->>>>>>> 68236b45d821528a3242f446e9eb5bf1ce9968e0
     FileUploaderComponent.decorators = [
         { type: Component, args: [{
                     selector: 'lcu-file-uploader',

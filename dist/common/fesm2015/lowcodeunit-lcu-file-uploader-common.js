@@ -29,7 +29,6 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-// import { ConvertToBase64Util } from '@lcu-ide/common';
 class FileUploaderComponent {
     constructor() {
         this.SelectedFiles = new Array();
@@ -50,76 +49,22 @@ class FileUploaderComponent {
         this.FileUploader = new FileUploader({ url: this._URL });
     }
     /**
-<<<<<<< HEAD
      * Build the image message
      *
      * @protected
      * @param {?} base64 base 64 string for the image
      *
      * @param {?} file file data
-=======
-     * @param {?} event
-     * @return {?}
-     */
-    onFileChanged(event) {
-        if (this.SelectedFiles) {
-            for (let i = 0; i < event.queue.length; i++) {
-                this.getBase64(event.queue[i].file.rawFile);
-                // console.log("Object = ",ConvertToBase64Util.GetBase64(event.queue[i].file.rawFile));     
-            }
-        }
-        console.log("file(s) uploaded = ", this.SelectedFiles);
-        this.FilesToUpload.emit(this.SelectedFiles);
-    }
-    /**
-     * @protected
-     * @param {?} event
-     * @return {?}
-     */
-    getBase64(event) {
-        /** @type {?} */
-        let file = event;
-        /** @type {?} */
-        let me = this;
-        /** @type {?} */
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (/**
-         * @return {?}
-         */
-        () => {
-            //console.log(reader.result);
-            me.base64 = reader.result.toString();
-            me.buildImageMessage(reader.result.toString(), file);
-        });
-        reader.onerror = (/**
-         * @param {?} error
-         * @return {?}
-         */
-        (error) => {
-            console.log('Error: ', error);
-        });
-    }
-    /**
-     * @protected
-     * @param {?} base64
-     * @param {?} file
->>>>>>> 68236b45d821528a3242f446e9eb5bf1ce9968e0
      * @return {?}
      */
     buildImageMessage(base64, file) {
         /** @type {?} */
         const header = 'filename=' + file.name;
         /** @type {?} */
-<<<<<<< HEAD
         const tempIM = new ImageMessage(base64, header);
-=======
-        let tempIM = new ImageMessage(base64, header);
->>>>>>> 68236b45d821528a3242f446e9eb5bf1ce9968e0
         this.SelectedFiles.push(tempIM);
         console.log('selected files', this.SelectedFiles);
     }
-<<<<<<< HEAD
     /**
      * When a file is selected
      *
@@ -140,8 +85,6 @@ class FileUploaderComponent {
             }
         }
     }
-=======
->>>>>>> 68236b45d821528a3242f446e9eb5bf1ce9968e0
 }
 FileUploaderComponent.decorators = [
     { type: Component, args: [{
