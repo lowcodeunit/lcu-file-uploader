@@ -9,7 +9,18 @@ export declare class FileUploaderComponent implements OnInit {
     FilesToUpload: EventEmitter<Array<ImageMessage>>;
     constructor();
     ngOnInit(): void;
-    getBase64(event: any): any;
-    buildImageMessage(base64: any, file: File): void;
-    onFileChanged(event: any): void;
+    /**
+     * Build the image message
+     *
+     * @param base64 base 64 string for the image
+     *
+     * @param file file data
+     */
+    protected buildImageMessage(base64: string, file: File): void;
+    /**
+     * When a file is selected
+     *
+     * @param event need to figure out what the type is
+     */
+    OnFileChanged(event: any): void;
 }

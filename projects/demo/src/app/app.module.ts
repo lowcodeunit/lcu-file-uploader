@@ -7,7 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { FathymSharedModule, MaterialModule } from '@lcu-ide/common';
-import { LcuFileUploaderModule } from 'projects/common/src/lcu.api';
+import { LcuFileUploaderModule } from '@lowcodeunit/lcu-file-uploader-common';
+
 // import { FileUploaderComponent } from 'projects/common/src/lcu.api';
 
 

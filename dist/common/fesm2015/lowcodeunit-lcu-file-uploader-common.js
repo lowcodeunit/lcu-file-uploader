@@ -1,6 +1,7 @@
 import { EventEmitter, Component, Input, Output, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FileUploader, FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
+import { ConvertToBase64Util } from '@lcu-ide/common';
 export { FileDropDirective, FileItem, FileLikeObject, FileSelectDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
 /**
@@ -48,66 +49,47 @@ class FileUploaderComponent {
         this.FileUploader = new FileUploader({ url: this._URL });
     }
     /**
-     * @param {?} event
-     * @return {?}
-     */
-    getBase64(event) {
-        /** @type {?} */
-        let file = event;
-        /** @type {?} */
-        let me = this;
-        /** @type {?} */
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (/**
-         * @return {?}
-         */
-        function () {
-            //console.log(reader.result);
-            // me.base64 = reader.result.toString();
-            me.buildImageMessage(reader.result.toString(), file);
-        });
-        reader.onerror = (/**
-         * @param {?} error
-         * @return {?}
-         */
-        function (error) {
-            console.log('Error: ', error);
-        });
-    }
-    /**
-     * @param {?} base64
-     * @param {?} file
+     * Build the image message
+     *
+     * @protected
+     * @param {?} base64 base 64 string for the image
+     *
+     * @param {?} file file data
      * @return {?}
      */
     buildImageMessage(base64, file) {
         /** @type {?} */
-        let header = "filename=" + file.name;
+        const header = 'filename=' + file.name;
         /** @type {?} */
-        let tempIM = new ImageMessage(base64, header);
-        //console.log("tempIm = ",tempIM);
+        const tempIM = new ImageMessage(base64, header);
         this.SelectedFiles.push(tempIM);
+        console.log('selected files', this.SelectedFiles);
     }
     /**
-     * @param {?} event
+     * When a file is selected
+     *
+     * @param {?} event need to figure out what the type is
      * @return {?}
      */
-    onFileChanged(event) {
-        // console.log("event = ", event);
-        // console.log("event.queue = ", event.queue);
+    OnFileChanged(event) {
         if (this.SelectedFiles) {
-            for (let i = 0; i < event.queue.length; i++) {
-                this.getBase64(event.queue[i].file.rawFile);
+            for (const itm of event.queue) {
+                ConvertToBase64Util.GetBase64(itm.file.rawFile)
+                    .subscribe((/**
+                 * @param {?} result
+                 * @return {?}
+                 */
+                (result) => {
+                    this.buildImageMessage(result.Blob, result.File);
+                }));
             }
         }
-        console.log("file(s) uploaded = ", this.SelectedFiles);
-        this.FilesToUpload.emit(this.SelectedFiles);
     }
 }
 FileUploaderComponent.decorators = [
     { type: Component, args: [{
                 selector: 'lcu-file-uploader',
-                template: "<input  style=\"display: none\" type=\"file\"  (change)=\"onFileChanged(FileUploader)\" ng2FileSelect [uploader]=\"FileUploader\" multiple #fileInput/>\r\n<button mat-raised-button class=\"button\" (click)=\"fileInput.click()\">Select File(s)</button>\r\n\r\n<!-- <input (change)=\"onFileChanged($event)\"> -->\r\n<!-- <input type=\"file\" (change)=\"onUpload($event)\" #file />\r\n<button mat-raised-button class=\"button\" (click)=\"file.click()\">Select File</button> -->\r\n\r\n",
+                template: "<input  style=\"display: none\" type=\"file\"  (change)=\"OnFileChanged(FileUploader)\" ng2FileSelect [uploader]=\"FileUploader\" multiple #fileInput/>\r\n<button mat-raised-button class=\"button\" (click)=\"fileInput.click()\">Select File(s)</button>\r\n\r\n<!-- <input (change)=\"onFileChanged($event)\"> -->\r\n<!-- <input type=\"file\" (change)=\"onUpload($event)\" #file />\r\n<button mat-raised-button class=\"button\" (click)=\"file.click()\">Select File</button> -->\r\n\r\n",
                 styles: [".button{background-color:#3f51b5;color:#fff;border-color:#3f51b5;border-radius:4px;font-family:Arial;font-size:13.3333px;padding:6px;box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)!important}"]
             }] }
 ];
