@@ -301,6 +301,7 @@
          */
         function (event) {
             var _this = this;
+            //  console.log("event.queue ", event.queue)
             this.SelectedFiles = [];
             common$1.ConvertToBase64Util.GetBase64(event.queue)
                 .subscribe((/**
@@ -322,7 +323,8 @@
                     }
                     finally { if (e_1) throw e_1.error; }
                 }
-                console.log('do something here');
+                //  console.log("Selected Files = ", this.SelectedFiles);
+                _this.FilesToUpload.emit(_this.SelectedFiles);
             }));
         };
         FileUploaderComponent.decorators = [

@@ -105,6 +105,7 @@ var FileUploaderComponent = /** @class */ (function () {
      */
     function (event) {
         var _this = this;
+        //  console.log("event.queue ", event.queue)
         this.SelectedFiles = [];
         ConvertToBase64Util.GetBase64(event.queue)
             .subscribe((/**
@@ -126,7 +127,8 @@ var FileUploaderComponent = /** @class */ (function () {
                 }
                 finally { if (e_1) throw e_1.error; }
             }
-            console.log('do something here');
+            //  console.log("Selected Files = ", this.SelectedFiles);
+            _this.FilesToUpload.emit(_this.SelectedFiles);
         }));
     };
     FileUploaderComponent.decorators = [

@@ -58,6 +58,7 @@ export class FileUploaderComponent implements OnInit {
     * @param event need to figure out what the type is
     */
    public OnFileChanged(event: any) {
+    //  console.log("event.queue ", event.queue)
     this.SelectedFiles = [];
     ConvertToBase64Util.GetBase64(event.queue)
        .subscribe(
@@ -65,6 +66,7 @@ export class FileUploaderComponent implements OnInit {
            for (const itm of result) {
             this.buildImageMessage(itm.Blob, itm.File);
            }
+          //  console.log("Selected Files = ", this.SelectedFiles);
            this.FilesToUpload.emit(this.SelectedFiles);
          }
       );
