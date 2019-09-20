@@ -17,7 +17,7 @@ export declare class FileUploaderComponent implements OnInit {
      *
      * @param file file data
      */
-    protected buildImageMessage(base64: string, file: File): void;
+    protected buildImageMessage(base64: string, file: any): void;
     /**
      * When a file is selected
      *

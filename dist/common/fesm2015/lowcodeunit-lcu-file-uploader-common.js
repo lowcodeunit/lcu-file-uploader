@@ -58,8 +58,9 @@ class FileUploaderComponent {
      * @return {?}
      */
     buildImageMessage(base64, file) {
+        //  console.log("filename = ", file.file.name)
         /** @type {?} */
-        const header = 'filename=' + file.name;
+        const header = 'filename=' + file.file.name;
         /** @type {?} */
         const tempIM = new ImageMessage(base64, header);
         this.SelectedFiles.push(tempIM);
@@ -83,7 +84,7 @@ class FileUploaderComponent {
             for (const itm of result) {
                 this.buildImageMessage(itm.Blob, itm.File);
             }
-            //  console.log("Selected Files = ", this.SelectedFiles);
+            console.log("Selected Files = ", this.SelectedFiles);
             this.FilesToUpload.emit(this.SelectedFiles);
         }));
     }
