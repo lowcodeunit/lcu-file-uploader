@@ -81,9 +81,18 @@ class FileUploaderComponent {
                  */
                 (result) => {
                     this.buildImageMessage(result.Blob, result.File);
+                }), (/**
+                 * @param {?} err
+                 * @return {?}
+                 */
+                err => console.log('error')), (/**
+                 * @return {?}
+                 */
+                () => {
+                    console.log('complete');
+                    this.FilesToUpload.emit(this.SelectedFiles);
                 }));
             }
-            this.FilesToUpload.emit(this.SelectedFiles);
         }
     }
 }

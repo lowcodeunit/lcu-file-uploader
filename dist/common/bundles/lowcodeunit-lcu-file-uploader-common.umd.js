@@ -313,6 +313,16 @@
                          */
                         function (result) {
                             _this.buildImageMessage(result.Blob, result.File);
+                        }), (/**
+                         * @param {?} err
+                         * @return {?}
+                         */
+                        function (err) { return console.log('error'); }), (/**
+                         * @return {?}
+                         */
+                        function () {
+                            console.log('complete');
+                            _this.FilesToUpload.emit(_this.SelectedFiles);
                         }));
                     }
                 }
@@ -323,7 +333,6 @@
                     }
                     finally { if (e_1) throw e_1.error; }
                 }
-                this.FilesToUpload.emit(this.SelectedFiles);
             }
         };
         FileUploaderComponent.decorators = [

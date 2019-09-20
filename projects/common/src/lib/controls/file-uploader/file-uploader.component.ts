@@ -57,15 +57,20 @@ export class FileUploaderComponent implements OnInit {
     *
     * @param event need to figure out what the type is
     */
-  public OnFileChanged(event: any) {
-    if (this.SelectedFiles) {
-     for (const itm of event.queue) {
-       ConvertToBase64Util.GetBase64(itm.file.rawFile)
-       .subscribe((result: Base64Model) => {
-          this.buildImageMessage(result.Blob, result.File);
-        });
+    public OnFileChanged(event: any) {
+      if (this.SelectedFiles) {
+       for (const itm of event.queue) {
+         ConvertToBase64Util.GetBase64(itm.file.rawFile)
+         .subscribe(
+           (result: Base64Model) => {
+            this.buildImageMessage(result.Blob, result.File);
+            },
+            err => console.log('error'),
+            () => {
+              console.log('complete');
+              this.FilesToUpload.emit(this.SelectedFiles);
+          });
+        }
       }
-      this.FilesToUpload.emit(this.SelectedFiles);
     }
-  }
 }
