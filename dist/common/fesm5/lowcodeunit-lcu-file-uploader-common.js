@@ -105,39 +105,29 @@ var FileUploaderComponent = /** @class */ (function () {
      */
     function (event) {
         var _this = this;
-        var e_1, _a;
-        if (this.SelectedFiles) {
+        this.SelectedFiles = [];
+        ConvertToBase64Util.GetBase64(event.queue)
+            .subscribe((/**
+         * @param {?} result
+         * @return {?}
+         */
+        function (result) {
+            var e_1, _a;
             try {
-                for (var _b = __values(event.queue), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var itm = _c.value;
-                    ConvertToBase64Util.GetBase64(itm.file.rawFile)
-                        .subscribe((/**
-                     * @param {?} result
-                     * @return {?}
-                     */
-                    function (result) {
-                        _this.buildImageMessage(result.Blob, result.File);
-                    }), (/**
-                     * @param {?} err
-                     * @return {?}
-                     */
-                    function (err) { return console.log('error'); }), (/**
-                     * @return {?}
-                     */
-                    function () {
-                        console.log('complete');
-                        _this.FilesToUpload.emit(_this.SelectedFiles);
-                    }));
+                for (var result_1 = __values(result), result_1_1 = result_1.next(); !result_1_1.done; result_1_1 = result_1.next()) {
+                    var itm = result_1_1.value;
+                    _this.buildImageMessage(itm.Blob, itm.File);
                 }
             }
             catch (e_1_1) { e_1 = { error: e_1_1 }; }
             finally {
                 try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                    if (result_1_1 && !result_1_1.done && (_a = result_1.return)) _a.call(result_1);
                 }
                 finally { if (e_1) throw e_1.error; }
             }
-        }
+            console.log('do something here');
+        }));
     };
     FileUploaderComponent.decorators = [
         { type: Component, args: [{

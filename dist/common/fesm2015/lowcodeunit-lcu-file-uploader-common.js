@@ -72,28 +72,18 @@ class FileUploaderComponent {
      * @return {?}
      */
     OnFileChanged(event) {
-        if (this.SelectedFiles) {
-            for (const itm of event.queue) {
-                ConvertToBase64Util.GetBase64(itm.file.rawFile)
-                    .subscribe((/**
-                 * @param {?} result
-                 * @return {?}
-                 */
-                (result) => {
-                    this.buildImageMessage(result.Blob, result.File);
-                }), (/**
-                 * @param {?} err
-                 * @return {?}
-                 */
-                err => console.log('error')), (/**
-                 * @return {?}
-                 */
-                () => {
-                    console.log('complete');
-                    this.FilesToUpload.emit(this.SelectedFiles);
-                }));
+        this.SelectedFiles = [];
+        ConvertToBase64Util.GetBase64(event.queue)
+            .subscribe((/**
+         * @param {?} result
+         * @return {?}
+         */
+        (result) => {
+            for (const itm of result) {
+                this.buildImageMessage(itm.Blob, itm.File);
             }
-        }
+            console.log('do something here');
+        }));
     }
 }
 FileUploaderComponent.decorators = [
