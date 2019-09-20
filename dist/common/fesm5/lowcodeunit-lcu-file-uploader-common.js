@@ -2,7 +2,7 @@ import { EventEmitter, Component, Input, Output, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { __values } from 'tslib';
 import { FileUploader, FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { ConvertToBase64Util } from '@lcu-ide/common';
+import { ConvertToBase64Util } from '@lcu/common';
 export { FileDropDirective, FileItem, FileLikeObject, FileSelectDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
 /**
@@ -117,6 +117,16 @@ var FileUploaderComponent = /** @class */ (function () {
                      */
                     function (result) {
                         _this.buildImageMessage(result.Blob, result.File);
+                    }), (/**
+                     * @param {?} err
+                     * @return {?}
+                     */
+                    function (err) { return console.log('error'); }), (/**
+                     * @return {?}
+                     */
+                    function () {
+                        console.log('complete');
+                        _this.FilesToUpload.emit(_this.SelectedFiles);
                     }));
                 }
             }
@@ -127,7 +137,6 @@ var FileUploaderComponent = /** @class */ (function () {
                 }
                 finally { if (e_1) throw e_1.error; }
             }
-            this.FilesToUpload.emit(this.SelectedFiles);
         }
     };
     FileUploaderComponent.decorators = [

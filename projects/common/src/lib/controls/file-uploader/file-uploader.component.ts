@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ImageMessage } from '../models/image-message.model';
-import { Base64Model, ConvertToBase64Util } from '@lcu-ide/common';
+import { Base64Model, ConvertToBase64Util } from '@lcu/common';
 
 @Component({
   selector: 'lcu-file-uploader',
@@ -57,15 +57,20 @@ export class FileUploaderComponent implements OnInit {
     *
     * @param event need to figure out what the type is
     */
-  public OnFileChanged(event: any) {
-    if (this.SelectedFiles) {
-     for (const itm of event.queue) {
-       ConvertToBase64Util.GetBase64(itm.file.rawFile)
-       .subscribe((result: Base64Model) => {
-          this.buildImageMessage(result.Blob, result.File);
-        });
+    public OnFileChanged(event: any) {
+      if (this.SelectedFiles) {
+       for (const itm of event.queue) {
+         ConvertToBase64Util.GetBase64(itm.file.rawFile)
+         .subscribe(
+           (result: Base64Model) => {
+            this.buildImageMessage(result.Blob, result.File);
+            },
+            err => console.log('error'),
+            () => {
+              console.log('complete');
+              this.FilesToUpload.emit(this.SelectedFiles);
+          });
+        }
       }
-      this.FilesToUpload.emit(this.SelectedFiles);
     }
-  }
 }

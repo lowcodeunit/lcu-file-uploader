@@ -1,7 +1,7 @@
 import { EventEmitter, Component, Input, Output, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FileUploader, FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { ConvertToBase64Util } from '@lcu-ide/common';
+import { ConvertToBase64Util } from '@lcu/common';
 export { FileDropDirective, FileItem, FileLikeObject, FileSelectDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
 /**
@@ -81,9 +81,18 @@ class FileUploaderComponent {
                  */
                 (result) => {
                     this.buildImageMessage(result.Blob, result.File);
+                }), (/**
+                 * @param {?} err
+                 * @return {?}
+                 */
+                err => console.log('error')), (/**
+                 * @return {?}
+                 */
+                () => {
+                    console.log('complete');
+                    this.FilesToUpload.emit(this.SelectedFiles);
                 }));
             }
-            this.FilesToUpload.emit(this.SelectedFiles);
         }
     }
 }
