@@ -65,7 +65,7 @@ export class FileUploaderComponent implements OnInit {
            for (const itm of result) {
             this.buildImageMessage(itm.Blob, itm.File);
            }
-           console.log('do something here');
+           this.FilesToUpload.emit(this.SelectedFiles);
          }
       );
   }
