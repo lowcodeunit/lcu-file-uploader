@@ -79,8 +79,9 @@ var FileUploaderComponent = /** @class */ (function () {
      * @return {?}
      */
     function (base64, file) {
+        //  console.log("filename = ", file.file.name)
         /** @type {?} */
-        var header = 'filename=' + file.name;
+        var header = 'filename=' + file.file.name;
         /** @type {?} */
         var tempIM = new ImageMessage(base64, header);
         this.SelectedFiles.push(tempIM);
@@ -127,7 +128,7 @@ var FileUploaderComponent = /** @class */ (function () {
                 }
                 finally { if (e_1) throw e_1.error; }
             }
-            //  console.log("Selected Files = ", this.SelectedFiles);
+            console.log("Selected Files = ", _this.SelectedFiles);
             _this.FilesToUpload.emit(_this.SelectedFiles);
         }));
     };
