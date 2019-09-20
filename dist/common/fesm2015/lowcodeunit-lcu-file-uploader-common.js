@@ -72,6 +72,7 @@ class FileUploaderComponent {
      * @return {?}
      */
     OnFileChanged(event) {
+        //  console.log("event.queue ", event.queue)
         this.SelectedFiles = [];
         ConvertToBase64Util.GetBase64(event.queue)
             .subscribe((/**
@@ -82,7 +83,8 @@ class FileUploaderComponent {
             for (const itm of result) {
                 this.buildImageMessage(itm.Blob, itm.File);
             }
-            console.log('do something here');
+            //  console.log("Selected Files = ", this.SelectedFiles);
+            this.FilesToUpload.emit(this.SelectedFiles);
         }));
     }
 }
