@@ -324,8 +324,9 @@
                     }
                     finally { if (e_1) throw e_1.error; }
                 }
-                //  console.log("Selected Files = ", this.SelectedFiles);
+                console.log("Emitting Selected Files = ", _this.SelectedFiles);
                 _this.FilesToUpload.emit(_this.SelectedFiles);
+                //  console.log("selected files below emit: ", this.SelectedFiles)
             }));
         };
         FileUploaderComponent.decorators = [
