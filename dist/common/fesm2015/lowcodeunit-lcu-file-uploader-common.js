@@ -60,9 +60,9 @@ class FileUploaderComponent {
     buildImageMessage(base64, file) {
         //  console.log("filename = ", file.file.name)
         /** @type {?} */
-        const header = 'filename=' + file.file.name;
+        let header = 'filename=' + file.file.name;
         /** @type {?} */
-        const tempIM = new ImageMessage(base64, header);
+        let tempIM = new ImageMessage(base64, header);
         this.SelectedFiles.push(tempIM);
         //  console.log('selected files', this.SelectedFiles);
     }
