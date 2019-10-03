@@ -2,7 +2,7 @@ import { EventEmitter, Component, Input, Output, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { __values } from 'tslib';
 import { FileUploader, FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { ConvertToBase64Util } from '@lcu-ide/common';
+import { ConvertToBase64Util } from '@lcu/common';
 export { FileDropDirective, FileItem, FileLikeObject, FileSelectDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
 /**
@@ -79,12 +79,13 @@ var FileUploaderComponent = /** @class */ (function () {
      * @return {?}
      */
     function (base64, file) {
+        //  console.log("filename = ", file.file.name)
         /** @type {?} */
-        var header = 'filename=' + file.name;
+        var header = 'filename=' + file.file.name;
         /** @type {?} */
         var tempIM = new ImageMessage(base64, header);
         this.SelectedFiles.push(tempIM);
-        console.log('selected files', this.SelectedFiles);
+        //  console.log('selected files', this.SelectedFiles);
     };
     /**
      * When a file is selected
@@ -105,29 +106,31 @@ var FileUploaderComponent = /** @class */ (function () {
      */
     function (event) {
         var _this = this;
-        var e_1, _a;
-        if (this.SelectedFiles) {
+        //  console.log("event.queue ", event.queue)
+        this.SelectedFiles = [];
+        ConvertToBase64Util.GetBase64(event.queue)
+            .subscribe((/**
+         * @param {?} result
+         * @return {?}
+         */
+        function (result) {
+            var e_1, _a;
             try {
-                for (var _b = __values(event.queue), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var itm = _c.value;
-                    ConvertToBase64Util.GetBase64(itm.file.rawFile)
-                        .subscribe((/**
-                     * @param {?} result
-                     * @return {?}
-                     */
-                    function (result) {
-                        _this.buildImageMessage(result.Blob, result.File);
-                    }));
+                for (var result_1 = __values(result), result_1_1 = result_1.next(); !result_1_1.done; result_1_1 = result_1.next()) {
+                    var itm = result_1_1.value;
+                    _this.buildImageMessage(itm.Blob, itm.File);
                 }
             }
             catch (e_1_1) { e_1 = { error: e_1_1 }; }
             finally {
                 try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                    if (result_1_1 && !result_1_1.done && (_a = result_1.return)) _a.call(result_1);
                 }
                 finally { if (e_1) throw e_1.error; }
             }
-        }
+            //  console.log("Selected Files = ", this.SelectedFiles);
+            _this.FilesToUpload.emit(_this.SelectedFiles);
+        }));
     };
     FileUploaderComponent.decorators = [
         { type: Component, args: [{

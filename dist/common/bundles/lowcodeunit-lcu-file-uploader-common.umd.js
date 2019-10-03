@@ -1,6 +1,6 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('ng2-file-upload/ng2-file-upload'), require('@lcu-ide/common'), require('ng2-file-upload')) :
-    typeof define === 'function' && define.amd ? define('@lowcodeunit/lcu-file-uploader-common', ['exports', '@angular/core', '@angular/common', 'ng2-file-upload/ng2-file-upload', '@lcu-ide/common', 'ng2-file-upload'], factory) :
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('ng2-file-upload/ng2-file-upload'), require('@lcu/common'), require('ng2-file-upload')) :
+    typeof define === 'function' && define.amd ? define('@lowcodeunit/lcu-file-uploader-common', ['exports', '@angular/core', '@angular/common', 'ng2-file-upload/ng2-file-upload', '@lcu/common', 'ng2-file-upload'], factory) :
     (global = global || self, factory((global.lowcodeunit = global.lowcodeunit || {}, global.lowcodeunit['lcu-file-uploader-common'] = {}), global.ng.core, global.ng.common, global.ng2FileUpload, global.common$1, global.ng2FileUpload$1));
 }(this, function (exports, core, common, ng2FileUpload, common$1, ng2FileUpload$1) { 'use strict';
 
@@ -275,12 +275,13 @@
          * @return {?}
          */
         function (base64, file) {
+            //  console.log("filename = ", file.file.name)
             /** @type {?} */
-            var header = 'filename=' + file.name;
+            var header = 'filename=' + file.file.name;
             /** @type {?} */
             var tempIM = new ImageMessage(base64, header);
             this.SelectedFiles.push(tempIM);
-            console.log('selected files', this.SelectedFiles);
+            //  console.log('selected files', this.SelectedFiles);
         };
         /**
          * When a file is selected
@@ -301,29 +302,31 @@
          */
         function (event) {
             var _this = this;
-            var e_1, _a;
-            if (this.SelectedFiles) {
+            //  console.log("event.queue ", event.queue)
+            this.SelectedFiles = [];
+            common$1.ConvertToBase64Util.GetBase64(event.queue)
+                .subscribe((/**
+             * @param {?} result
+             * @return {?}
+             */
+            function (result) {
+                var e_1, _a;
                 try {
-                    for (var _b = __values(event.queue), _c = _b.next(); !_c.done; _c = _b.next()) {
-                        var itm = _c.value;
-                        common$1.ConvertToBase64Util.GetBase64(itm.file.rawFile)
-                            .subscribe((/**
-                         * @param {?} result
-                         * @return {?}
-                         */
-                        function (result) {
-                            _this.buildImageMessage(result.Blob, result.File);
-                        }));
+                    for (var result_1 = __values(result), result_1_1 = result_1.next(); !result_1_1.done; result_1_1 = result_1.next()) {
+                        var itm = result_1_1.value;
+                        _this.buildImageMessage(itm.Blob, itm.File);
                     }
                 }
                 catch (e_1_1) { e_1 = { error: e_1_1 }; }
                 finally {
                     try {
-                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                        if (result_1_1 && !result_1_1.done && (_a = result_1.return)) _a.call(result_1);
                     }
                     finally { if (e_1) throw e_1.error; }
                 }
-            }
+                //  console.log("Selected Files = ", this.SelectedFiles);
+                _this.FilesToUpload.emit(_this.SelectedFiles);
+            }));
         };
         FileUploaderComponent.decorators = [
             { type: core.Component, args: [{

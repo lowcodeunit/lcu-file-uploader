@@ -1,7 +1,7 @@
 import { EventEmitter, Component, Input, Output, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FileUploader, FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { ConvertToBase64Util } from '@lcu-ide/common';
+import { ConvertToBase64Util } from '@lcu/common';
 export { FileDropDirective, FileItem, FileLikeObject, FileSelectDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
 /**
@@ -58,12 +58,13 @@ class FileUploaderComponent {
      * @return {?}
      */
     buildImageMessage(base64, file) {
+        //  console.log("filename = ", file.file.name)
         /** @type {?} */
-        const header = 'filename=' + file.name;
+        const header = 'filename=' + file.file.name;
         /** @type {?} */
         const tempIM = new ImageMessage(base64, header);
         this.SelectedFiles.push(tempIM);
-        console.log('selected files', this.SelectedFiles);
+        //  console.log('selected files', this.SelectedFiles);
     }
     /**
      * When a file is selected
@@ -72,18 +73,20 @@ class FileUploaderComponent {
      * @return {?}
      */
     OnFileChanged(event) {
-        if (this.SelectedFiles) {
-            for (const itm of event.queue) {
-                ConvertToBase64Util.GetBase64(itm.file.rawFile)
-                    .subscribe((/**
-                 * @param {?} result
-                 * @return {?}
-                 */
-                (result) => {
-                    this.buildImageMessage(result.Blob, result.File);
-                }));
+        //  console.log("event.queue ", event.queue)
+        this.SelectedFiles = [];
+        ConvertToBase64Util.GetBase64(event.queue)
+            .subscribe((/**
+         * @param {?} result
+         * @return {?}
+         */
+        (result) => {
+            for (const itm of result) {
+                this.buildImageMessage(itm.Blob, itm.File);
             }
-        }
+            //  console.log("Selected Files = ", this.SelectedFiles);
+            this.FilesToUpload.emit(this.SelectedFiles);
+        }));
     }
 }
 FileUploaderComponent.decorators = [
