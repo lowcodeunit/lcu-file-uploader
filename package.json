@@ -24,8 +24,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "npx-build-plus:copy-assets": "node projects/lcu/copy-wc-polyfill.js",
-    "upgrade": "ng update @angular/cli @angular/core && npm i @angular/cdk && npm audit fix && npm i @angular/material @angular/flex-layout @types/node @webcomponents/custom-elements @webcomponents/webcomponentsjs codelyzer ngx-build-plus"
-  },
+    "upgrade": "ng update @angular/cli @angular/core && npm i @angular/cdk@latest && npm audit fix && npm i @lcu/common@1.1.31-angular-9 @angular/material@latest @angular/flex-layout@latest @types/node@latest @webcomponents/custom-elements@latest @webcomponents/webcomponentsjs@latest codelyzer@latest ngx-build-plus@latest"  },
+  
   "private": false,
   "dependencies": {
     "@angular/animations": "~8.1.2",
