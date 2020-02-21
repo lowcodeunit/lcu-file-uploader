@@ -18,7 +18,7 @@ export class FileUploaderComponent implements OnInit {
 
   public base64: string;
 
-  protected _URL;
+  protected _URL: string;
   @Input('url')
   protected set URL(value: string) {
     this._URL = value;
