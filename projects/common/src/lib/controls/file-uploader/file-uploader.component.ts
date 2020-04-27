@@ -18,7 +18,7 @@ export class FileUploaderComponent implements OnInit {
 
   public base64: string;
 
-  protected _URL;
+  protected _URL: string;
   @Input('url')
   protected set URL(value: string) {
     this._URL = value;
@@ -45,8 +45,8 @@ export class FileUploaderComponent implements OnInit {
    */
    protected buildImageMessage(base64: string, file: any){
     //  console.log("filename = ", file.file.name)
-     const header = 'filename=' + file.file.name;
-     const tempIM: ImageMessage = new ImageMessage(base64, header);
+     let header = 'filename=' + file.file.name;
+     let tempIM: ImageMessage = new ImageMessage(base64, header);
      this.SelectedFiles.push(tempIM);
 
     //  console.log('selected files', this.SelectedFiles);
@@ -67,8 +67,10 @@ export class FileUploaderComponent implements OnInit {
            for (const itm of result) {
             this.buildImageMessage(itm.Blob, itm.File);
            }
-          //  console.log("Selected Files = ", this.SelectedFiles);
+           console.log("Emitting Selected Files = ", this.SelectedFiles);
            this.FilesToUpload.emit(this.SelectedFiles);
+          //  console.log("selected files below emit: ", this.SelectedFiles)
+
          }
       );
   }
