@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ImageMessage } from '../models/image-message.model';
 import { Base64Model, ConvertToBase64Util } from '@lcu/common';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'lcu-file-uploader',
